@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const root = document.getElementById("root");
+
+    function App() {
+      // useState(initialValue);
+      //  initialValue - data의 초기값
+
+      // return [data, function];
+      //  data - 감시하며 업데이트 할 데이터 (read-only -> 업데이트 하려면 function에 값을 전달해서 업데이트)
+      //  function - 데이터를 업데이트 하는 함수 (업데이트 = 리렌더링)
+      //    방법 1. function(value) - 직접 업데이트 할 값 전달
+      //      value - data를 업데이트 할 값
+      //    방법 2. function(current => {value}) - 함수를 통해 업데이트 할 값 전달 (better case)
+      //      current - 현재 상태의 값
+      //      value - data를 업데이트 할 값
+ 
+      const [counter, setCounter] = React.useState(0);
+
+      const onClick = () => {
+        // Tip. 현재 State를 통해 State를 업데이트 해야 할 경우 다음과 같은 방식이 더 효과적이다.
+        // setCounter(counter + 1);
+        setCounter((current) => current +1);  // better case
+      };
+
+      return (
+        <div>
+          <h3>Total Clicks: {counter}</h3>
+          <button onClick={onClick}>Click me</button>
+        </div>
+      );
+    }
+
+    ReactDOM.render(<App />, root);
+  </script>
+</html>

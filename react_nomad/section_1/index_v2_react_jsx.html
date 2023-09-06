@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    // 일반적인 과정 - 시작 HTML, 끝 JS(HTML에서 HTML 태그 생성 -> JS에 HTML 태그 불러오기 -> HTML 수정 및 업데이트)
+    // React의 과정 - 시작 JS, 끝 HTML(JS에서 HTML 태그 생성 -> HTML 수정 및 업데이트 -> HTML에 JS에서 생성한 태그 전달)
+    // 결론 => JS 코드 안에서 뭐든것을 편하게 만들 수 있다!
+
+    // HTML 태그 가져오기
+    const root = document.getElementById("root");
+
+    // JSX를 통한 element 생성 => 주의! 컴포넌트는 항상 대문자로 시작
+    function Title() {
+      return (
+        <h3
+          id="title"
+          style={{ backgroundColor: "red" }}
+          onMouseEnter={() => console.log("mouse enter")}
+        >
+          Hello World
+        </h3>
+      );
+    }
+
+    // createElement를 통한 element 생성 - React.createElement(name, Properties, contents)
+    // const h3 = React.createElement(
+    //   "h3",
+    //   {
+    //     id: "custom-span",
+    //     style: { color: "red" },
+    //     onMouseEnter: () => console.log("mouse enter"),
+    //   },
+    //   "Hello World"
+    // );
+
+    // JSX를 통한 element 생성
+    const Button = () => (
+      <button onClick={() => console.log("click")}>Click me</button>
+    );
+    // createElement를 통한 element 생성 - React.createElement(name, Properties, contents)
+    // const btn = React.createElement(
+    //   "button",
+    //   {
+    //     onClick: () => console.log("click"),
+    //   },
+    //   "Click me"
+    // );
+
+    const Container = () => (
+      <div>
+        <Title />
+        <Button />
+      </div>
+    );
+    // const container = React.createElement("div", null, [h3, btn]);
+
+    // react-dom을 통한 추가
+    ReactDOM.render(<Container/>, root);
+  </script>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <span id="count">Total clicks: 0</span>
+    <button id="btn">Click me</button>
+  </body>
+  <script>
+    // 일반적인 단계
+    // 1. HTML 태그 생성
+    // 2. querySelector 등을 통해 JavaScript에 가져옴
+    // 3. listener를 추가하여 event 감지
+    // 4. 업데이트 감지
+    const button = document.querySelector("#btn");
+    const span = document.querySelector("#count");
+
+    let counter = 0;
+
+    function handleClick() {
+      span.innerText = `Total clicks: ${++counter}`;
+    }
+
+    button.addEventListener("click", handleClick);
+  </script>
+</html>
