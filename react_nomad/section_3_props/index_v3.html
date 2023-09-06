@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+  <script type="text/babel">
+    const root = document.getElementById("root");
+
+    // v3: props를 통한 스타일 응용
+
+    // 주의! 커스텀한 props의 이름은 그냥 이름이고 값을 전달할 뿐 기존 HTML 태그의 props 처럼 작동하지 않음
+    //  <Btn text="Save Change" onClick={changeValue} />
+    //      onClick으로 전달했다고 <button onClick={}>과 같이 이벤트 리스너 처럼 동작하지 않음
+    //          즉, 받은 다음에 컴포넌트에서 처리해야 함 (onClick={onClick})
+
+    // 문제 1.
+    //  부모 컴포넌트에서 상태가 업데이트 되면 자식 컴포넌트도 다 업데이트(재렌더링) 된다
+    //  재랜더링 하지 않아도 될 자식 컴포넌트도 불필요하게 재랜더링 된다는 문제
+    //  해결 방법 => 상태관리 라이브러리 사용 (Redux, Recoil)
+
+    // 문제 2.
+    // props로 전달할게 많아질 경우, 타입을 다르게 적는 등의 실수를 할 우려가 생긴다
+    // 해결 방법 => typescript 사용, prop-types 사용
+
+    // prop-types - type을 선언해 놓고 다를 경우 컴파일 에러
+    // Btn.propTypes = {
+    //     text: PropTypes.string.isRequired,
+    //     fontSize: PropTypes.number.isRequired,
+    //     onClick: PropTypes.func,
+    // }
+
+    // fontSize의 기본값 == 16
+    function Btn({ text, fontSize = 16, onClick }) {
+      return (
+        <button
+          onClick={onClick}
+          style={{
+            backgroundColor: "tomato",
+            color: "white",
+            padding: "10px 20px",
+            border: 0,
+            borderRadius: 10,
+            fontSize: fontSize, // 응용 예시 1
+          }}
+        >
+          {text}
+        </button>
+      );
+    }
+
+    function App() {
+      const [value, setValue] = React.useState("Save Changes");
+
+      const changeValue = () => setValue("Revert Changes");
+
+      return (
+        <div>
+          <Btn text={value} fontSize={18} onClick={changeValue} />
+          <Btn text="Confirm" />
+        </div>
+      );
+    }
+
+    ReactDOM.render(<App />, root);
+  </script>
+</html>
+
